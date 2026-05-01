@@ -1,0 +1,37 @@
+[
+  {
+    "id": "tee-classic-black",
+    "name": "Classic Cotton Tee - Black",
+    "description": "100% organic cotton crew-neck t-shirt in black. Available sizes XS-XXL.",
+    "price_cents": 2900,
+    "currency": "usd"
+  },
+  {
+    "id": "hoodie-essential-grey",
+    "name": "Essential Hoodie - Heather Grey",
+    "description": "Mid-weight fleece pullover hoodie with kangaroo pocket. Sizes XS-XXL.",
+    "price_cents": 6500,
+    "currency": "usd"
+  },
+  {
+    "id": "denim-slim-indigo",
+    "name": "Slim Fit Denim Jeans - Indigo",
+    "description": "Stretch denim jeans with a modern slim taper. Waist sizes 28-38.",
+    "price_cents": 8900,
+    "currency": "usd"
+  },
+  {
+    "id": "sneaker-runner-white",
+    "name": "Everyday Runner Sneakers - White",
+    "description": "Lightweight cushioned sneakers for daily wear. Unisex sizing US 6-13.",
+    "price_cents": 11900,
+    "currency": "usd"
+  },
+  {
+    "id": "tote-canvas-natural",
+    "name": "Heavyweight Canvas Tote - Natural",
+    "description": "Durable 16oz canvas tote bag with reinforced straps. One size.",
+    "price_cents": 2500,
+    "currency": "usd"
+  }
+]
