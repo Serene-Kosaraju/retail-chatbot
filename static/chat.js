@@ -92,6 +92,18 @@ formEl.addEventListener("submit", (e) => {
   sendMessage(text);
 });
 
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 4000 
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
 // URL flags from Stripe redirect
 const params = new URLSearchParams(location.search);
 if (params.get("paid") === "1") {
