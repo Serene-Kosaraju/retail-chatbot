@@ -38,6 +38,7 @@ def load_faqs() -> None:
     global _faqs, _matrix
     with open(DATA_DIR / "faqs.json", "r", encoding="utf-8") as f:
         _faqs = json.load(f)
+        print(_faqs)
     if not _faqs:
         _matrix = np.zeros((0, 1), dtype=np.float32)
         return
