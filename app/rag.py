@@ -7,20 +7,20 @@ from pathlib import Path
 from typing import List, Tuple
 
 import numpy as np
-from openai import OpenAI
+from groq import Groq
 
 DATA_DIR = Path(__file__).parent / "data"
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
-_client: OpenAI | None = None
+_client: Groq | None = None
 _faqs: List[dict] = []
 _matrix: np.ndarray | None = None  # shape (N, D), L2-normalized
 
 
-def _get_client() -> OpenAI:
+def _get_client() -> Groq:
     global _client
     if _client is None:
-        _client = OpenAI()
+        _client = Groq()
     return _client
 
 
