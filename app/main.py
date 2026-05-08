@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 import stripe
+import groq
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -45,8 +46,8 @@ app.add_middleware(
 async def chat(req: ChatRequest) -> ChatResponse:
     if not req.messages:
         raise HTTPException(status_code=400, detail="messages must not be empty")
-    if not os.getenv("OPENAI_API_KEY"):
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY is not configured")
+    if not os.getenv("GROQ_API_KEY"):
+        raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured")
 
     history = [m.model_dump() for m in req.messages]
     try:
