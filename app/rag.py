@@ -38,13 +38,13 @@ def load_faqs() -> None:
     global _faqs, _matrix
     with open(DATA_DIR / "faqs.json", "r", encoding="utf-8") as f:
         _faqs = json.load(f)
-        print(_faqs)
     if not _faqs:
         _matrix = np.zeros((0, 1), dtype=np.float32)
         return
-    texts = [f"Q: {item['q']}\nA: {item['a']}" for item in _faqs]
+    texts = "\n".join([f"Q: {item['q']}\nA: {item['a']}" for item in _faqs['faqs']])
     _matrix = _embed(texts)
     print(f"[rag] embedded {len(_faqs)} FAQ entries")
+    return texts
 
 
 def search(query: str, top_k: int = 3) -> List[Tuple[float, dict]]:
