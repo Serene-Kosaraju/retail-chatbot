@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 
 DATA_DIR = Path(__file__).parent / "data"
-STATIC_DIR = Path(__file__).parent / "static"
 _faqs: List[dict] = []
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
@@ -26,7 +25,7 @@ def get_faq_context():
 
 @app.route("/")
 def index():
-    return render_template(STATIC_DIR/"index.html")
+    return render_template("index.html")
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
