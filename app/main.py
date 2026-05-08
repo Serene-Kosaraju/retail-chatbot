@@ -6,33 +6,18 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 import stripe
-import groq
-from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
+import json
+from flask import Flask, render_template, request, jsonify
+from groq import Groq
+
+app = Flask(__name__)
 
 from . import llm, orders, rag
-from .schemas import ChatRequest, ChatResponse
+# from .schemas import ChatRequest, ChatResponse
 
-load_dotenv()
+# load_dotenv()
 
 STATIC_DIR = Path(__file__).parent.parent / "static"
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    orders.load_products()
-    orders.init_db()
-    try:
-        rag.load_faqs()
-    except Exception as e:  # noqa: BLE001
-        print(f"[startup] FAQ embedding failed: {e}. Chat will still work without RAG.")
-    yield
-
-
-app = FastAPI(title="Retail Chatbot", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,16 +26,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest) -> ChatResponse:
-    if not req.messages:
-        raise HTTPException(status_code=400, detail="messages must not be empty")
-    if not os.getenv("GROQ_API_KEY"):
-        raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured")
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-    history = [m.model_dump() for m in req.messages]
-    user_message = req.messages[0]
+@app.route("/api/chat", methods=["POST"])
+async def chat():
+    user_message = request.json["message"]
+    # if not req.messages:
+    #     raise HTTPException(status_code=400, detail="messages must not be empty")
+    # if not os.getenv("GROQ_API_KEY"):
+    #     raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured")
+
+    # history = [m.model_dump() for m in req.messages]
     context = rag.load_faqs()
 
     system_prompt = f"You are a helpful support bot. Use this FAQ data to answer questions:\n{context}\nIf the answer is not in the FAQ, say you don't know."
@@ -70,12 +60,12 @@ async def chat(req: ChatRequest) -> ChatResponse:
     # return ChatResponse(**result)
 
 
-@app.get("/api/products")
+@app.route("/api/products", methods=["GET"])
 async def products() -> list[dict]:
     return orders.list_products()
 
 
-@app.post("/api/stripe/webhook")
+@app.route("/api/stripe/webhook", methods = ["POST"])
 async def stripe_webhook(request: Request) -> JSONResponse:
     payload = await request.body()
     sig = request.headers.get("stripe-signature", "")
@@ -105,3 +95,6 @@ async def healthz() -> dict:
 
 # Mount static frontend at root (index.html, style.css, chat.js)
 app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
