@@ -50,12 +50,24 @@ async def chat(req: ChatRequest) -> ChatResponse:
         raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured")
 
     history = [m.model_dump() for m in req.messages]
-    try:
-        result = llm.run_chat(history)
-    except Exception as e:  # noqa: BLE001
-        print(f"[chat] error: {e}")
-        raise HTTPException(status_code=500, detail=f"Chat error: {e}") from e
-    return ChatResponse(**result)
+    user_message = req.json["message"]
+    context = rag.load_faqs()
+
+    system_prompt = f"You are a helpful support bot. Use this FAQ data to answer questions:\n{context}\nIf the answer is not in the FAQ, say you don't know."
+    completion = client.chat.completions.create(
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_message}
+        ],
+        model="llama3-8b-8192",
+    )
+    return jsonify({"response": completion.choices[0].message.content})
+    # try:
+    #     result = llm.run_chat(history)
+    # except Exception as e:  # noqa: BLE001
+    #     print(f"[chat] error: {e}")
+    #     raise HTTPException(status_code=500, detail=f"Chat error: {e}") from e
+    # return ChatResponse(**result)
 
 
 @app.get("/api/products")
