@@ -19,12 +19,12 @@ from . import llm, orders, rag
 
 STATIC_DIR = Path(__file__).parent.parent / "static"
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
