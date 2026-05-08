@@ -27,10 +27,17 @@ app = Flask(__name__)
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-with open('faq_data.json', 'r') as f:
-    faq_data = json.load(f)
-
 def get_faq_context():
+    global _faqs, _matrix
+    with open(DATA_DIR / "faqs.json", "r", encoding="utf-8") as f:
+        _faqs = json.load(f)
+    if not _faqs:
+        _matrix = np.zeros((0, 1), dtype=np.float32)
+        return
+    texts = "\n".join([f"Q: {item['q']}\nA: {item['a']}" for item in _faqs['faqs']])
+    _matrix = _embed(texts)
+    print(f"[rag] embedded {len(_faqs)} FAQ entries")
+    return texts
     return "\n".join([f"Q: {item['q']}\nA: {item['a']}" for item in faq_data['faqs']])
 
 @app.route("/")
