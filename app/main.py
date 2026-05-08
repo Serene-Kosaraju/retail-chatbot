@@ -50,7 +50,7 @@ async def chat(req: ChatRequest) -> ChatResponse:
         raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured")
 
     history = [m.model_dump() for m in req.messages]
-    user_message = req.json["message"]
+    user_message = req.messages[0]
     context = rag.load_faqs()
 
     system_prompt = f"You are a helpful support bot. Use this FAQ data to answer questions:\n{context}\nIf the answer is not in the FAQ, say you don't know."
