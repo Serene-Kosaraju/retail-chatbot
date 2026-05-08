@@ -5,11 +5,11 @@ import json
 import os
 from typing import Any
 
-from openai import OpenAI
+from groq import Groq
 
 from . import orders, rag
 
-MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+MODEL = os.getenv("GROQ_MODEL", "llama3-70b-8192")
 
 SYSTEM_PROMPT = """You are a friendly retail brand assistant for an apparel store.
 
@@ -100,8 +100,8 @@ TOOLS: list[dict[str, Any]] = [
 ]
 
 
-def _client() -> OpenAI:
-    return OpenAI()
+def _client() -> Groq:
+    return Groq()
 
 
 def run_chat(history: list[dict]) -> dict:
