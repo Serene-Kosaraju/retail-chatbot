@@ -14,17 +14,9 @@ app = Flask(__name__)
 
 # from .schemas import ChatRequest, ChatResponse
 
-# load_dotenv()
-
-# STATIC_DIR = Path(__file__).parent.parent / "static"
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
+DATA_DIR = Path(__file__).parent / "data"
+_faqs: List[dict] = []
+_matrix: np.ndarray | None = None  # shape (N, D), L2-normalized
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def get_faq_context():
@@ -38,7 +30,6 @@ def get_faq_context():
     _matrix = _embed(texts)
     print(f"[rag] embedded {len(_faqs)} FAQ entries")
     return texts
-    return "\n".join([f"Q: {item['q']}\nA: {item['a']}" for item in faq_data['faqs']])
 
 @app.route("/")
 def index():
