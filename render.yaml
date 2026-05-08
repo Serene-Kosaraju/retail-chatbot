@@ -17,6 +17,6 @@ services:
       - key: PUBLIC_BASE_URL
         sync: false
       - key: GROQ_MODEL
-        value: llama3-70b-8192
+        value: llama-3.3-70b-versatile
       - key: EMBEDDING_MODEL
         value: text-embedding-3-small
