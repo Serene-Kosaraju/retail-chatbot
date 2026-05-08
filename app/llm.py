@@ -118,8 +118,8 @@ def run_chat(history: list[dict]) -> dict:
             model=MODEL,
             messages=messages,
             tools=TOOLS,
-            tool_choice="auto",
-            temperature=0.4,
+            tool_choice="none",
+            temperature=0.2,
         )
         msg = resp.choices[0].message
         tool_calls = msg.tool_calls or []
