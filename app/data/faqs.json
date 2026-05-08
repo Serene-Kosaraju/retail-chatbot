@@ -1,4 +1,4 @@
-[
+{ "faqs": [
   {
     "q": "What are your shipping times?",
     "a": "Standard shipping takes 3-5 business days within the country. Express shipping is 1-2 business days. International orders take 7-14 business days depending on destination."
@@ -40,3 +40,4 @@
     "a": "Yes, members earn 1 point per $1 spent, plus bonus points on birthdays and reviews. 100 points = $5 off. Sign up free at the account page."
   }
 ]
+}
