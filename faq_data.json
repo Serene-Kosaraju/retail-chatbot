@@ -1,0 +1,43 @@
+{ "faqs": [
+  {
+    "q": "What are your shipping times?",
+    "a": "Standard shipping takes 3-5 business days within the country. Express shipping is 1-2 business days. International orders take 7-14 business days depending on destination."
+  },
+  {
+    "q": "What is your return policy?",
+    "a": "We accept returns within 30 days of delivery. Items must be unworn, unwashed, and have original tags attached. Refunds are processed to the original payment method within 5-7 business days after we receive the return."
+  },
+  {
+    "q": "Do you offer exchanges?",
+    "a": "Yes, exchanges are free within 30 days for size or color swaps on the same item, subject to availability. Start an exchange from your order page or contact support."
+  },
+  {
+    "q": "How do I find my size?",
+    "a": "Each product page has a size guide with chest, waist, and hip measurements in cm and inches. If you're between sizes, we generally recommend sizing up for tops and sticking to your waist measurement for bottoms."
+  },
+  {
+    "q": "What payment methods do you accept?",
+    "a": "We accept all major credit and debit cards (Visa, Mastercard, American Express), Apple Pay, Google Pay, and Klarna for buy-now-pay-later in supported regions."
+  },
+  {
+    "q": "How do I track my order?",
+    "a": "You'll receive a tracking link by email as soon as your order ships, usually within 24 hours of placing it. You can also check status by replying with your order number here."
+  },
+  {
+    "q": "Do you ship internationally?",
+    "a": "Yes, we ship to over 60 countries. Duties and taxes are calculated at checkout for most destinations. Delivery times vary from 7-14 business days."
+  },
+  {
+    "q": "What are your customer service hours?",
+    "a": "Our support team is available Monday-Friday 9am-6pm and Saturday 10am-4pm local time. Outside those hours, this chatbot can help or you can email support@brand.example."
+  },
+  {
+    "q": "Do you sell gift cards?",
+    "a": "Yes, digital gift cards are available from $25 to $500. They never expire and are delivered by email instantly after purchase."
+  },
+  {
+    "q": "Do you have a loyalty program?",
+    "a": "Yes, members earn 1 point per $1 spent, plus bonus points on birthdays and reviews. 100 points = $5 off. Sign up free at the account page."
+  }
+]
+}
