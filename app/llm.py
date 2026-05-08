@@ -9,7 +9,7 @@ from groq import Groq
 
 from . import orders, rag
 
-MODEL = os.getenv("GROQ_MODEL", "llama3-70b-8192")
+MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
 SYSTEM_PROMPT = """You are a friendly retail brand assistant for an apparel store.
 
